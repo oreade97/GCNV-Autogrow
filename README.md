@@ -2,6 +2,8 @@
 Autogrow Script for growing Google Cloud NetApp Volumes Storage Pools and Volumes
 This script is designed to automatically manage the capacity of NetApp volumes and their associated storage pools in Google Cloud, using thresholds to prevent over-allocation and ensuring that the capacity stays within desired limits.
 
+![image](Illustration.png)
+
 ## Features
 - Automated Volume Resizing: Automatically increases the capacity of a NetApp volume based on the percentage of used capacity.
 - Storage Pool Auto-Expansion: If the available storage pool capacity is insufficient, the pool is expanded by the exact amount needed for the volume increase.
@@ -12,7 +14,7 @@ This script is designed to automatically manage the capacity of NetApp volumes a
 
 ## How It Works
 1) When a volume's capacity exceeds the threshold set by the Alerting Condition (default is 80%) Cloud monitoring creates an incident report
-   *insert image here*
+   
 2) The function is triggered by a message from a Cloud Pub/Sub topic, which contains said incident report.
 2) The function decodes the message and extracts relevant details, including the volume's region, name, and project ID.
 3) It fetches the volume's current capacity and the associated storage pool's capacity from the GCNV API.
