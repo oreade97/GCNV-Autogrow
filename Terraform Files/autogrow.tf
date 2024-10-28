@@ -120,12 +120,12 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   combiner     = "OR"
 
   # TODO: Set threshold here on line 147 (default = 80%)
-  # change "8" to match your preferred threshold (0 = 0%, 8 = 80%, 10 = 100%)
+  # change "8" to match your preferred threshold (0 = 0%, 80 = 80%, 100 = 100%)
 
   conditions {
     display_name = "Volume usage threshold"
     condition_prometheus_query_language {
-      query    = "max_over_time( (( netapp_googleapis_com:volume_bytes_used / netapp_googleapis_com:volume_allocated_bytes ) *100)[1m:] ) > 8"
+      query    = "max_over_time( (( netapp_googleapis_com:volume_bytes_used / netapp_googleapis_com:volume_allocated_bytes ) *100)[1m:] ) > 80"
       duration = "0s"
       evaluation_interval = "60s"
       alert_rule  = "AlwaysOn"
