@@ -124,21 +124,11 @@ resource "google_monitoring_alert_policy" "alert_policy" {
 
   conditions {
     display_name = "Volume usage threshold"
-    condition_monitoring_query_language {
-      query    = <<EOF
-    fetch netapp.googleapis.com/Volume
-  | { t_0:
-      metric 'netapp.googleapis.com/volume/bytes_used'
-      | group_by 1m, [value_bytes_used_mean: mean(value.bytes_used) * 100]
-  ; t_1:
-      metric 'netapp.googleapis.com/volume/allocated_bytes'
-      | group_by 1m, [value_allocated_bytes_mean: mean(value.allocated_bytes)] }
-  | ratio
-  | every 1m
-  | condition gt(ratio, 10 '1')
-
-EOF
+    condition_prometheus_query_language {
+      query    = "max_over_time( (( netapp_googleapis_com:volume_bytes_used / netapp_googleapis_com:volume_allocated_bytes ) *100)[1m:] ) > 8"
       duration = "0s"
+      evaluation_interval = "60s"
+      alert_rule  = "AlwaysOn"
     }
   }
 
