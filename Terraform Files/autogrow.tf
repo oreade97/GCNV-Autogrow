@@ -120,7 +120,7 @@ resource "google_monitoring_alert_policy" "alert_policy" {
   combiner     = "OR"
 
   # TODO: Set threshold here on line 147 (default = 80%)
-  # change "val() > 0.8" to match your preferred threshold (0 = 0%, 0.8 = 80%, 1 = 100%)
+  # change "8" to match your preferred threshold (0 = 0%, 8 = 80%, 10 = 100%)
 
   conditions {
     display_name = "Volume usage threshold"
